@@ -5,10 +5,10 @@ let isPlaying = false;
 
 function togglePlayPause() {
   if (isPlaying) {
-    playPauseButton.textContent = 'Play';
+    // playPauseButton.textContent = 'Play';
     playPauseImage.src = 'play.jpg';
   } else {
-    playPauseButton.textContent = 'Pause';
+    // playPauseButton.textContent = 'Pause';
     playPauseImage.src = 'pause.jpeg';
   }
   isPlaying = !isPlaying;
