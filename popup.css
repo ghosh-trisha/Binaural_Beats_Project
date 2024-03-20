@@ -1,3 +1,15 @@
+body{
+    width: 300px;
+}
+#baseFre{
+    width: 275px;
+}
+#beatsFre{
+    width: 275px;
+}
+#volume{
+    width: 275px;
+}
 #message{
     display: flex;
     justify-content: center;
