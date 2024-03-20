@@ -3,6 +3,9 @@
     "name" : "Binaural Beats",
     "version" : "1.0.0",
     "permissions" : ["tabs"],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://cdn.jsdelivr.net"  // Allow Bootstrap styles
+    },
     "action" : {
         "default_popup" : "popup.html"
     },
