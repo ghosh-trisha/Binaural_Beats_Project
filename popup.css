@@ -1,0 +1,8 @@
+#message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#playPauseImg{
+    height: 25px;
+}
