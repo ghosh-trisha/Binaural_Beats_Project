@@ -24,7 +24,7 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 
 
-let audio = new Audio();
+let audio = new Audio("song.mp3");
 
 let isPlayingAudio = false;
 function playAudio() {
