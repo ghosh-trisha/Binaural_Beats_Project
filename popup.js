@@ -42,14 +42,19 @@ playPauseButton.addEventListener('click', togglePlayPause);
 let audioContext = new AudioContext();
 const audioFileURL="song.mp3";
 
-
+let source;
 function playAudio(audioBuffer) {
-  const source = audioContext.createBufferSource();
+  source = audioContext.createBufferSource();
   source.buffer = audioBuffer;
   source.connect(audioContext.destination);
   source.start();
 }
-
+function stopAudio() {
+  if (source) {
+    source.stop();
+    source.disconnect(); // Disconnect the source node
+  }
+}
 let isPlayingAudioContext = false;
 function playAudioContext() {
     if (!isPlayingAudioContext) {
@@ -61,7 +66,7 @@ function playAudioContext() {
       })
       .catch(error => console.error('Error loading audio file:', error));
     } else {
-        audioContext.pause();
+      stopAudio()
     }
     isPlayingAudioContext = !isPlayingAudioContext;
 }
