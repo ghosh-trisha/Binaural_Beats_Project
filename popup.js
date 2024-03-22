@@ -24,35 +24,35 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 
 
-let audio = new Audio("song.mp3");
+// let audio = new Audio("song.mp3");
 
-let isPlayingAudio = false;
-function playAudio() {
-    if (!isPlayingAudio) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-    isPlayingAudio = !isPlayingAudio;
-  }
-  playPauseButton.addEventListener('click', playAudio);
+// let isPlayingAudio = false;
+// function playAudio() {
+//     if (!isPlayingAudio) {
+//       audio.play();
+//     } else {
+//       audio.pause();
+//     }
+//     isPlayingAudio = !isPlayingAudio;
+//   }
+//   playPauseButton.addEventListener('click', playAudio);
 
 
 
 
   
-// let audioContext = new AudioContext();
+let audioContext = new AudioContext("song.mp3");
 
-// let isPlayingAudioContext = false;
-// function playAudioContext() {
-//     if (!isPlayingAudioContext) {
-//         audioContext.play();
-//     } else {
-//         audioContext.pause();
-//     }
-//     isPlayingAudioContext = !isPlayingAudioContext;
-//   }
-//   playPauseButton.addEventListener('click', playAudioContext);
+let isPlayingAudioContext = false;
+function playAudioContext() {
+    if (!isPlayingAudioContext) {
+        audioContext.play();
+    } else {
+        audioContext.pause();
+    }
+    isPlayingAudioContext = !isPlayingAudioContext;
+  }
+  playPauseButton.addEventListener('click', playAudioContext);
 
 // let baseFreq = document.getElementById('baseFre').value;
 // let beatFreq = document.getElementById('beatsFre').value;
