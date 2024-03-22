@@ -4,7 +4,8 @@
     "version" : "1.0.0",
     "permissions" : ["tabs"],
     "action" : {
-        "default_popup" : "popup.html"
+        "default_popup" : "popup.html",
+        "default_icon" : "logo.jpg"
     },
     "background" : {
         "service_worker" : "background.js"
