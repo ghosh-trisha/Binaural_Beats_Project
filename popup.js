@@ -64,8 +64,8 @@ function playAudioContext() {
         audioContext.pause();
     }
     isPlayingAudioContext = !isPlayingAudioContext;
-  }
-  playPauseButton.addEventListener('click', playAudioContext);
+}
+playPauseButton.addEventListener('click', playAudioContext);
 
 // let baseFreq = document.getElementById('baseFre').value;
 // let beatFreq = document.getElementById('beatsFre').value;
