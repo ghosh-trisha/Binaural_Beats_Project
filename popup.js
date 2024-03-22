@@ -39,14 +39,27 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 
 
+let audioContext = new AudioContext();
+const audioFileURL="song.mp3";
 
-  
-let audioContext = new AudioContext("song.mp3");
+
+function playAudio(audioBuffer) {
+  const source = audioContext.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(audioContext.destination);
+  source.start();
+}
 
 let isPlayingAudioContext = false;
 function playAudioContext() {
     if (!isPlayingAudioContext) {
-        audioContext.play();
+      fetch(audioFileURL)
+      .then(response => response.arrayBuffer())
+      .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+      .then(audioBuffer => {
+        playAudio(audioBuffer);
+      })
+      .catch(error => console.error('Error loading audio file:', error));
     } else {
         audioContext.pause();
     }
