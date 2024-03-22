@@ -24,24 +24,24 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 
 
-// let audio = new Audio();
+let audio = new Audio();
 
-// let isPlayingAudio = false;
-// function playAudio() {
-//     if (!isPlayingAudio) {
-//       audio.play();
-//     } else {
-//       audio.pause();
-//     }
-//     isPlayingAudio = !isPlayingAudio;
-//   }
-//   playPauseButton.addEventListener('click', playAudio);
+let isPlayingAudio = false;
+function playAudio() {
+    if (!isPlayingAudio) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+    isPlayingAudio = !isPlayingAudio;
+  }
+  playPauseButton.addEventListener('click', playAudio);
 
 
 
 
   
-let audioContext = new AudioContext();
+// let audioContext = new AudioContext();
 
 // let isPlayingAudioContext = false;
 // function playAudioContext() {
