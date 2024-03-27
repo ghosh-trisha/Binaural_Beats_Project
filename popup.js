@@ -106,3 +106,23 @@ playPauseButton.addEventListener('click', playAudioContext);
 //     isPlayingMusic = !isPlayingMusic;
 //   }
 //   playPauseButton.addEventListener('click', playMusic);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MEDITATION PAGE
+const medi=document.getElementById("medi");
+medi.addEventListener('click',()=>{
+  chrome.runtime.sendMessage({ action: "openNewTab", url: "page/index.html" });
+})
