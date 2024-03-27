@@ -18,7 +18,25 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 
 
+//STORE DATA
 
+// Store data to Chrome storage
+function storeData(baseFreq,beatFreq,vol) {
+
+  chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
+}
+
+// Retrieve data from Chrome storage
+function retrieveData() {
+  chrome.storage.sync.get(['popData'], function(result) {
+    console.log('Data retrieved successfully:', result.popData);
+   
+   document.getElementById('baseFre').value=result.popData.baseFreq;
+   document.getElementById('beatsFre').value=result.popData.beatFreq;
+   document.getElementById('volume').value=result.popData.vol;
+  });
+}
+retrieveData();
 
 
 
@@ -37,7 +55,7 @@ playPauseButton.addEventListener('click', togglePlayPause);
 //   }
 //   playPauseButton.addEventListener('click', playAudio);
 
-
+/*
 
 let audioContext = new AudioContext();
 const audioFileURL="song.mp3";
@@ -71,41 +89,75 @@ function playAudioContext() {
     isPlayingAudioContext = !isPlayingAudioContext;
 }
 playPauseButton.addEventListener('click', playAudioContext);
+*/
 
-// let baseFreq = document.getElementById('baseFre').value;
-// let beatFreq = document.getElementById('beatsFre').value;
-// let vol = document.getElementById('volume').value;
+let audioContext = new AudioContext();
+let leftEarOsc = null;
+let rightEarOsc= null;
+function playMusic() {
 
-// let leftEarOsc = audioContext.createOscillator();
-// let rightEarOsc = audioContext.createOscillator();
+          let baseFreq =parseInt( document.getElementById('baseFre').value);
+          let beatFreq = parseInt(document.getElementById('beatsFre').value);
+          let vol =parseFloat( document.getElementById('volume').value);
+          storeData(baseFreq,beatFreq,vol);
 
-// leftEarOsc.type = "sine";
-// rightEarOsc.type = "sine";
+          leftEarOsc = audioContext.createOscillator();
+          rightEarOsc = audioContext.createOscillator();
 
-// leftEarOsc.frequency.value = Math.round((baseFreq+beatFreq)/5);
-// rightEarOsc.frequency.value = Math.round((baseFreq-beatFreq)/5);
+          leftEarOsc.type = "sine";
+          rightEarOsc.type = "sine";
 
-// let gainNode = audioContext.createGain();
-// gainNode.gain.value = vol;
+        leftEarOsc.frequency.value = Math.round(baseFreq + (beatFreq / 2));
+        rightEarOsc.frequency.value = Math.round(baseFreq - (beatFreq / 2));
 
-// leftEarOsc.connect(gainNode);
-// rightEarOsc.connect(gainNode);
+        let gainNode = audioContext.createGain();
+        gainNode.gain.value = vol;
 
-// gainNode.connect(audioContext.destination);
+        let leftStereoPanner = audioContext.createStereoPanner();
+        let rightStereoPanner = audioContext.createStereoPanner();
+
+        leftStereoPanner.pan.value = -1;
+        rightStereoPanner.pan.value = 1;
+
+        leftEarOsc.connect(leftStereoPanner);
+        rightEarOsc.connect(rightStereoPanner);
+
+        leftStereoPanner.connect(gainNode);
+        rightStereoPanner.connect(gainNode);
+
+        gainNode.connect(audioContext.destination);
 
 
-// let isPlayingMusic = false;
-// function playMusic() {
-//     if (!isPlayingMusic) {
-//         leftEarOsc.start();
-//         rightEarOsc.start();
-//     } else {
-//         leftEarOsc.stop();
-//         rightEarOsc.stop();
-//     }
-//     isPlayingMusic = !isPlayingMusic;
-//   }
-//   playPauseButton.addEventListener('click', playMusic);
+        leftEarOsc.start();
+        rightEarOsc.start();
+}
+
+
+
+function pauseMusic() {
+      if(leftEarOsc!=null)
+      leftEarOsc.stop();
+
+      if(rightEarOsc!=null)
+      rightEarOsc.stop();
+}
+
+
+
+
+
+
+let isPlayingMusic = false;
+function toggleMusic() {
+    if (!isPlayingMusic) {
+      playMusic();
+    } else {
+       pauseMusic();
+        
+    }
+    isPlayingMusic = !isPlayingMusic;
+  }
+  playPauseButton.addEventListener('click', toggleMusic);
 
 
 
@@ -126,3 +178,5 @@ const medi=document.getElementById("medi");
 medi.addEventListener('click',()=>{
   chrome.runtime.sendMessage({ action: "openNewTab", url: "page/index.html" });
 })
+
+
