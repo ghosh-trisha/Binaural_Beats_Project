@@ -67,63 +67,65 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 
 
-let audioContext = new AudioContext();
-let leftEarOsc = null;
-let rightEarOsc= null;
-function playMusic() {
+// let audioContext = new AudioContext();
+// let leftEarOsc = null;
+// let rightEarOsc= null;
+// function playMusic() {
 
-          let baseFreq =parseInt( document.getElementById('baseFre').value);
-          let beatFreq = parseInt(document.getElementById('beatsFre').value);
-          let vol =parseFloat( document.getElementById('volume').value);
-          storeData(baseFreq,beatFreq,vol);
+//           let baseFreq =parseInt( document.getElementById('baseFre').value);
+//           let beatFreq = parseInt(document.getElementById('beatsFre').value);
+//           let vol =parseFloat( document.getElementById('volume').value);
+//           storeData(baseFreq,beatFreq,vol);
 
-          leftEarOsc = audioContext.createOscillator();
-          rightEarOsc = audioContext.createOscillator();
+//           leftEarOsc = audioContext.createOscillator();
+//           rightEarOsc = audioContext.createOscillator();
 
-          leftEarOsc.type = "sine";
-          rightEarOsc.type = "sine";
+//           leftEarOsc.type = "sine";
+//           rightEarOsc.type = "sine";
 
-        leftEarOsc.frequency.value = Math.round(baseFreq + (beatFreq / 2));
-        rightEarOsc.frequency.value = Math.round(baseFreq - (beatFreq / 2));
+//         leftEarOsc.frequency.value = Math.round(baseFreq + (beatFreq / 2));
+//         rightEarOsc.frequency.value = Math.round(baseFreq - (beatFreq / 2));
 
-        let gainNode = audioContext.createGain();
-        gainNode.gain.value = vol;
+//         let gainNode = audioContext.createGain();
+//         gainNode.gain.value = vol;
 
-        let leftStereoPanner = audioContext.createStereoPanner();
-        let rightStereoPanner = audioContext.createStereoPanner();
+//         let leftStereoPanner = audioContext.createStereoPanner();
+//         let rightStereoPanner = audioContext.createStereoPanner();
 
-        leftStereoPanner.pan.value = -1;
-        rightStereoPanner.pan.value = 1;
+//         leftStereoPanner.pan.value = -1;
+//         rightStereoPanner.pan.value = 1;
 
-        leftEarOsc.connect(leftStereoPanner);
-        rightEarOsc.connect(rightStereoPanner);
+//         leftEarOsc.connect(leftStereoPanner);
+//         rightEarOsc.connect(rightStereoPanner);
 
-        leftStereoPanner.connect(gainNode);
-        rightStereoPanner.connect(gainNode);
+//         leftStereoPanner.connect(gainNode);
+//         rightStereoPanner.connect(gainNode);
 
-        gainNode.connect(audioContext.destination);
-
-
-        leftEarOsc.start();
-        rightEarOsc.start();
-}
+//         gainNode.connect(audioContext.destination);
 
 
-
-function pauseMusic() {
-      if(leftEarOsc!=null){
-      leftEarOsc.stop();}
-
-      if(rightEarOsc!=null){
-      rightEarOsc.stop();}
-}
+//         leftEarOsc.start();
+//         rightEarOsc.start();
+// }
 
 
 
+// function pauseMusic() {
+//       if(leftEarOsc!=null){
+//       leftEarOsc.stop();}
+
+//       if(rightEarOsc!=null){
+//       rightEarOsc.stop();}
+// }
+
+
+let baseFreq =parseInt( document.getElementById('baseFre').value);
+let beatFreq = parseInt(document.getElementById('beatsFre').value);
+let vol =parseFloat( document.getElementById('volume').value);
 let isPlayingMusic = false;
 function toggleMusic() {
     if (!isPlayingMusic) {
-      playMusic();
+      playMusic(baseFreq, beatFreq, vol);
     } else {
        pauseMusic();
         
@@ -135,9 +137,9 @@ playPauseButton.addEventListener('click', toggleMusic);
 
 //STORE DATA
 // Store data to Chrome storage
-function storeData(baseFreq,beatFreq,vol) {
-  chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
-}
+// function storeData(baseFreq,beatFreq,vol) {
+//   chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
+// }
 
 // Retrieve data from Chrome storage
 function retrieveData() {

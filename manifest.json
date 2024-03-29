@@ -12,7 +12,7 @@
     },
     "content_scripts" : [
         {
-            "js" : ["popup.js"],
+            "js" : ["content.js"],
             "matches" : ["<all_urls>"]
         }
     ],
