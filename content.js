@@ -2,28 +2,28 @@
 
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.text === "play") {
+    if(message.text == "play"){
         console.log(message.text);
       let baseFreq = message.parameter1;
       let beatFreq = message.parmeter2;
       let vol = message.parameter3;
-    //   playMusic(baseFreq, beatFreq, vol);
+      playMusic(baseFreq, beatFreq, vol);
     }
-    if(message.text=="pause"){
-        // pauseMusic();
+    if(message.text == "pause"){
+        pauseMusic();
     }
 });
 
-let audioContext = new AudioContext();
-// let audioContext = null; 
-// // Function to create or resume AudioContext
-// function createOrResumeAudioContext() {
-//     if (!audioContext) {
-//         audioContext = new AudioContext();
-//     } else if (audioContext.state === 'suspended') {
-//         audioContext.resume();
-//     }
-// }
+// let audioContext = new AudioContext();
+let audioContext = null;
+// Function to create or resume AudioContext
+function createOrResumeAudioContext() {
+    if (!audioContext) {
+        audioContext = new AudioContext();
+    } else if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+}
 
 createOrResumeAudioContext();
 let leftEarOsc = null;
@@ -73,4 +73,4 @@ function pauseMusic() {
 
 function storeData(baseFreq,beatFreq,vol) {
     chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
-  }
+}
