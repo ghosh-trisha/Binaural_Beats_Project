@@ -33,7 +33,6 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 // let audioContext = new AudioContext();
 // const audioFileURL="song.mp3";
-
 // let source;
 // function playAudio(audioBuffer) {
 //   source = audioContext.createBufferSource();
@@ -112,11 +111,11 @@ function playMusic() {
 
 
 function pauseMusic() {
-      if(leftEarOsc!=null)
-      leftEarOsc.stop();
+      if(leftEarOsc!=null){
+      leftEarOsc.stop();}
 
-      if(rightEarOsc!=null)
-      rightEarOsc.stop();
+      if(rightEarOsc!=null){
+      rightEarOsc.stop();}
 }
 
 
