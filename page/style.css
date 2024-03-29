@@ -1,0 +1,55 @@
+body{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 100%; */
+    height: 97vh;
+    background-color: black;
+   
+}
+#dot{
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+   cursor: pointer;
+   
+}
+.body_animate{
+    animation: bodymedi 40s infinite alternate;
+}
+.animate{
+    box-shadow: 5px 0 10px 5px grey;
+    animation: medi 40s infinite alternate;
+}
+
+
+@keyframes medi {
+    0%{
+        height:15px;
+        width: 15px;
+        transform: rotate(0deg);
+        box-shadow: 5px 0 10px 5px grey;
+        background-color: white;
+    }
+    100%{
+        height: 300px;
+        width: 300px;
+        transform: rotate(14440deg);
+        box-shadow: 5px 0 10px 10px grey;
+        background-color: black;
+    }
+}
+
+
+@keyframes bodymedi {
+    0%{
+        background-color: black;
+    }
+    100%{
+        background-color: white;
+
+    }
+}
