@@ -3,9 +3,9 @@
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.text === "play") {
-      let baseFreq = message.baseFreq;
-      let beatFreq = message.beatFreq;
-      let vol = message.vol;
+      let baseFreq = message.parameter1;
+      let beatFreq = message.parmeter2;
+      let vol = message.parameter3;
       playMusic(baseFreq, beatFreq, vol);
     }
     if(message.text=="pause"){
