@@ -152,10 +152,8 @@ function retrieveData() {
 retrieveData();
 
 
-// //MEDITATION PAGE
+// MEDITATION PAGE
 // const medi=document.getElementById("medi");
 // medi.addEventListener('click',()=>{
 //   chrome.runtime.sendMessage({ action: "openNewTab", url: "page/index.html" });
 // })
-
-
