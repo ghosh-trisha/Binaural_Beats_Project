@@ -3,6 +3,7 @@
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if (message.text === "play") {
+        console.log(message.text);
       let baseFreq = message.parameter1;
       let beatFreq = message.parmeter2;
       let vol = message.parameter3;
@@ -24,6 +25,7 @@ function createOrResumeAudioContext() {
     }
 }
 
+createOrResumeAudioContext();
 let leftEarOsc = null;
 let rightEarOsc= null;
 function playMusic(baseFreq,beatFreq,vol) {
