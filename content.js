@@ -7,23 +7,23 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       let baseFreq = message.parameter1;
       let beatFreq = message.parmeter2;
       let vol = message.parameter3;
-      playMusic(baseFreq, beatFreq, vol);
+    //   playMusic(baseFreq, beatFreq, vol);
     }
     if(message.text=="pause"){
-        pauseMusic();
+        // pauseMusic();
     }
 });
 
-// let audioContext = new AudioContext();
-let audioContext = null; 
-// Function to create or resume AudioContext
-function createOrResumeAudioContext() {
-    if (!audioContext) {
-        audioContext = new AudioContext();
-    } else if (audioContext.state === 'suspended') {
-        audioContext.resume();
-    }
-}
+let audioContext = new AudioContext();
+// let audioContext = null; 
+// // Function to create or resume AudioContext
+// function createOrResumeAudioContext() {
+//     if (!audioContext) {
+//         audioContext = new AudioContext();
+//     } else if (audioContext.state === 'suspended') {
+//         audioContext.resume();
+//     }
+// }
 
 createOrResumeAudioContext();
 let leftEarOsc = null;
