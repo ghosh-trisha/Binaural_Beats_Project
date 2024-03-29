@@ -42,7 +42,6 @@ playPauseButton.addEventListener('click', togglePlayPause);
 let audioContext = new AudioContext();
 const audioFileURL="song.mp3";
 
-
 function playAudio(audioBuffer) {
   const source = audioContext.createBufferSource();
   source.buffer = audioBuffer;
@@ -66,6 +65,7 @@ function playAudioContext() {
     isPlayingAudioContext = !isPlayingAudioContext;
 }
 playPauseButton.addEventListener('click', playAudioContext);
+
 
 // let baseFreq = document.getElementById('baseFre').value;
 // let beatFreq = document.getElementById('beatsFre').value;
