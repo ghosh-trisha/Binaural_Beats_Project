@@ -119,12 +119,12 @@ playPauseButton.addEventListener('click', togglePlayPause);
 // }
 
 
-let baseFreq =parseInt( document.getElementById('baseFre').value);
-let beatFreq = parseInt(document.getElementById('beatsFre').value);
-let vol =parseFloat( document.getElementById('volume').value);
 let isPlayingMusic = false;
 function toggleMusic() {
     if (!isPlayingMusic) {
+        let baseFreq =parseInt( document.getElementById('baseFre').value);
+        let beatFreq = parseInt(document.getElementById('beatsFre').value);
+        let vol =parseFloat( document.getElementById('volume').value);
     //   playMusic(baseFreq, beatFreq, vol);
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { 
