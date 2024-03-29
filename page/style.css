@@ -18,11 +18,11 @@ body{
    
 }
 .body_animate{
-    animation: bodymedi 30s infinite alternate;
+    animation: bodymedi 40s infinite alternate;
 }
 .animate{
     box-shadow: 5px 0 10px 5px grey;
-    animation: medi 30s infinite alternate;
+    animation: medi 40s infinite alternate;
 }
 
 
