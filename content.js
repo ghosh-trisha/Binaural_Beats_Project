@@ -1,10 +1,23 @@
 // document.body.style.backgroundColor = "red";
 
 
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.text === "play") {
+      let baseFreq = message.baseFreq;
+      let beatFreq = message.beatFreq;
+      let vol = message.vol;
+      playMusic(baseFreq, beatFreq, vol);
+    }
+    if(message.text=="pause"){
+        pauseMusic();
+    }
+});
+
 let audioContext = new AudioContext();
 let leftEarOsc = null;
 let rightEarOsc= null;
 function playMusic(baseFreq,beatFreq,vol) {
+
     storeData(baseFreq,beatFreq,vol);
 
     leftEarOsc = audioContext.createOscillator();
