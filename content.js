@@ -13,7 +13,17 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     }
 });
 
-let audioContext = new AudioContext();
+// let audioContext = new AudioContext();
+let audioContext = null; 
+// Function to create or resume AudioContext
+function createOrResumeAudioContext() {
+    if (!audioContext) {
+        audioContext = new AudioContext();
+    } else if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+}
+
 let leftEarOsc = null;
 let rightEarOsc= null;
 function playMusic(baseFreq,beatFreq,vol) {
