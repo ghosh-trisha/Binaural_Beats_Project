@@ -75,7 +75,7 @@ function playMusic() {
           let baseFreq =parseInt( document.getElementById('baseFre').value);
           let beatFreq = parseInt(document.getElementById('beatsFre').value);
           let vol =parseFloat( document.getElementById('volume').value);
-        //   storeData(baseFreq,beatFreq,vol);
+          storeData(baseFreq,beatFreq,vol);
 
           leftEarOsc = audioContext.createOscillator();
           rightEarOsc = audioContext.createOscillator();
@@ -133,23 +133,23 @@ function toggleMusic() {
 playPauseButton.addEventListener('click', toggleMusic);
 
 
-// //STORE DATA
-// // Store data to Chrome storage
-// function storeData(baseFreq,beatFreq,vol) {
-//   chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
-// }
+//STORE DATA
+// Store data to Chrome storage
+function storeData(baseFreq,beatFreq,vol) {
+  chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
+}
 
-// // Retrieve data from Chrome storage
-// function retrieveData() {
-//   chrome.storage.sync.get(['popData'], function(result) {
-//     console.log('Data retrieved successfully:', result.popData);
+// Retrieve data from Chrome storage
+function retrieveData() {
+  chrome.storage.sync.get(['popData'], function(result) {
+    console.log('Data retrieved successfully:', result.popData);
    
-//    document.getElementById('baseFre').value=result.popData.baseFreq;
-//    document.getElementById('beatsFre').value=result.popData.beatFreq;
-//    document.getElementById('volume').value=result.popData.vol;
-//   });
-// }
-// retrieveData();
+   document.getElementById('baseFre').value=result.popData.baseFreq;
+   document.getElementById('beatsFre').value=result.popData.beatFreq;
+   document.getElementById('volume').value=result.popData.vol;
+  });
+}
+retrieveData();
 
 
 // //MEDITATION PAGE
