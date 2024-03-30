@@ -1,4 +1,4 @@
-let tab_id = tabs[0].id;
+
 let playPauseButton = document.getElementById('playPause');
 let playPauseImage = document.getElementById('playPauseImg');
 let isPlaying = false;
@@ -119,6 +119,7 @@ playPauseButton.addEventListener('click', togglePlayPause);
 // }
 
 
+let tab_id = null;
 let isPlayingMusic = false;
 function toggleMusic() {
   if (!isPlayingMusic) {
@@ -129,9 +130,17 @@ function toggleMusic() {
     // console.log(beatFreq);
     // console.log(vol);
     //   playMusic(baseFreq, beatFreq, vol);
-    
+
     chrome.tabs.query({  }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {
+      if(!tabs[0].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
+        chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+      }
+      })
+      tab_id = tabs[0].id;
+      storeId(tab_id);
+
+    chrome.tabs.query({  }, function (tabs) {
+      chrome.tabs.sendMessage(tab_id, {
         text: "play",
         parameter1: baseFreq,
         parameter2: beatFreq,
@@ -145,7 +154,7 @@ function toggleMusic() {
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
     chrome.tabs.query({  }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {
+      chrome.tabs.sendMessage(tab_id, {
         text: "pause",
         parameter1: baseFreq,
         parameter2: beatFreq,
@@ -163,6 +172,15 @@ playPauseButton.addEventListener('click', toggleMusic);
 // function storeData(baseFreq,beatFreq,vol) {
 //   chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
 // }
+function storeId(tab_id) {
+    chrome.storage.sync.set({ 'popId':{tab_id} });
+}
+function retrieveId() {
+    chrome.storage.sync.get(['popId'], function (result) {
+      tab_id = result.popId.tab_id;
+    });
+  }
+retrieveId();
 
 
 // Retrieve data from Chrome storage
@@ -216,7 +234,7 @@ function changeFre() {
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
-    chrome.tabs.sendMessage(tabs[0].id, {
+    chrome.tabs.sendMessage(tab_id.id, {
         text: "changeVol",
         parameter1: baseFreq,
         parameter2: beatFreq,
@@ -229,5 +247,9 @@ function changeFre() {
 // MEDITATION PAGE
 const medi=document.getElementById("medi");
 medi.addEventListener('click',()=>{
-  chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+  chrome.tabs.query({  }, function (tabs) {
+    if(!tabs[0].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
+      chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+    }
+    })
 })

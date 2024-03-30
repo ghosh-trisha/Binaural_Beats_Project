@@ -47,7 +47,7 @@ let leftEarOsc = null;
 let rightEarOsc= null;
 let gainNode=null;
 function playMusic(baseFreq, beatFreq, vol) {
-
+    
     createOrResumeAudioContext();
     storeData(baseFreq,beatFreq,vol, true);
 
