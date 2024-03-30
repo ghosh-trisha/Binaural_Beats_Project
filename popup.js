@@ -180,6 +180,24 @@ function retrieveData() {
 retrieveData();
 
 
+let base = document.getElementById('a');
+let beat = document.getElementById('b');
+let vo = document.getElementById('c');
+let baseFreq =parseInt( document.getElementById('baseFre').value);
+let beatFreq = parseInt(document.getElementById('beatsFre').value);
+let vol =parseFloat( document.getElementById('volume').value);
+
+base.addEventListener('change', function(){
+    base.innerHTML = base.textContent + baseFreq;
+});
+beat.addEventListener('change', function(){
+    beat.innerHTML = beat.textContent + beatFreq;
+});
+vo.addEventListener('change', function(){
+    vo.innerHTML = vo.textContent + vol;
+});
+
+
 // MEDITATION PAGE
 // const medi=document.getElementById("medi");
 // medi.addEventListener('click',()=>{
