@@ -193,24 +193,46 @@ let vF =document.getElementById('volume');
 baseF.addEventListener('input', function(){
     base.innerHTML = "Base frequency : " + baseF.value+" Fz";
     if(isPlaying){
-      toggleMusic();
-      toggleMusic();
+        changing();
     }
+    // if(isPlaying){
+    //   toggleMusic();
+    //   toggleMusic();
+    // }
 });
 beatF.addEventListener('input', function(){
     beat.innerHTML = "Beats frequency : " + beatF.value+" Fz";
     if(isPlaying){
-      toggleMusic();
-      toggleMusic();
+        changing();
     }
+    // if(isPlaying){
+    //   toggleMusic();
+    //   toggleMusic();
+    // }
 });
 vF.addEventListener('input', function(){
     vo.innerHTML = "Volume : " +Math.round((vF.value/.50)*100);
-  if(isPlaying){
-    toggleMusic();
-    toggleMusic();
-  }
+    if(isPlaying){
+        changing();
+    }
+//   if(isPlaying){
+//     toggleMusic();
+//     toggleMusic();
+//   }
 });
+function changing(){
+    let baseFreq =parseInt( document.getElementById('baseFre').value);
+        let beatFreq = parseInt(document.getElementById('beatsFre').value);
+        let vol =parseFloat( document.getElementById('volume').value);
+        chrome.tabs.query({  }, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, { 
+                text: "changeVol",
+                parameter1: baseFreq,
+                parameter2: beatFreq,
+                parameter3: vol
+            });
+        });
+}
 
 
 
