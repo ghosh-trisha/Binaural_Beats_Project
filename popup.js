@@ -160,11 +160,14 @@ playPauseButton.addEventListener('click', toggleMusic);
 // Retrieve data from Chrome storage
 function retrieveData() {
   chrome.storage.sync.get(['popData'], function(result) {
-    console.log('Data retrieved successfully:', result.popData);
+    // console.log('Data retrieved successfully:', result.popData);
    
    document.getElementById('baseFre').value=result.popData.baseFreq;
    document.getElementById('beatsFre').value=result.popData.beatFreq;
    document.getElementById('volume').value=result.popData.vol;
+   isPlayingMusic=result.popData.bool;
+   isPlaying=!(result.popData.bool);
+   togglePlayPause();
   });
 }
 retrieveData();
