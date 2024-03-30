@@ -132,19 +132,6 @@ function toggleMusic() {
     // console.log(vol);
     //   playMusic(baseFreq, beatFreq, vol);
 
-<<<<<<< HEAD
-    chrome.tabs.query({  }, function (tabs) {
-  
-      let flag1=true;
-    for (let index = 0; index < tabs.length; index++){
-      if(tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
-        flag1=false;
-      }
-    }
-  if(flag1){
-    chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
-  }
-=======
     chrome.tabs.query({}, function (tabs) {
 
       let flag1 = true;
@@ -152,7 +139,6 @@ function toggleMusic() {
         if (tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")) {
           flag1 = false;
         }
->>>>>>> 98bb6666e35374a9b5cb90fdb1f20ee7b2156ccc
 
       }
       if (flag1) {
