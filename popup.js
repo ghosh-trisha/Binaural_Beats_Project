@@ -183,18 +183,18 @@ retrieveData();
 let base = document.getElementById('a');
 let beat = document.getElementById('b');
 let vo = document.getElementById('c');
-let baseFreq =parseInt( document.getElementById('baseFre').value);
-let beatFreq = parseInt(document.getElementById('beatsFre').value);
-let vol =parseFloat( document.getElementById('volume').value);
+let baseF =parseInt( document.getElementById('baseFre'));
+let beatF = parseInt(document.getElementById('beatsFre'));
+let vF =parseFloat( document.getElementById('volume'));
 
-baseFreq.addEventListener('change', function(){
-    base.innerHTML = base.textContent + baseFreq;
+baseF.addEventListener('change', function(){
+    base.innerHTML = base.textContent + baseF.value;
 });
-beatFreq.addEventListener('change', function(){
-    beat.innerHTML = beat.textContent + beatFreq;
+beatF.addEventListener('change', function(){
+    beat.innerHTML = beat.textContent + beatF.value;
 });
-vol.addEventListener('change', function(){
-    vo.innerHTML = vo.textContent + vol;
+vF.addEventListener('change', function(){
+    vo.innerHTML = vo.textContent + vF.value;
 });
 
 
