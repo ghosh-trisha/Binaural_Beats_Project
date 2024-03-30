@@ -188,14 +188,17 @@ let beatF =document.getElementById('beatsFre');
 let vF =document.getElementById('volume');
 
 baseF.addEventListener('change', function(){
-    base.innerHTML = base.textContent + baseF.value;
+    base.innerHTML = "Base frequency : " + baseF.value;
 });
 beatF.addEventListener('change', function(){
-    beat.innerHTML = beat.textContent + beatF.value;
+    beat.innerHTML = "Beats frequency : " + beatF.value;
 });
 vF.addEventListener('change', function(){
-    vo.innerHTML = vo.textContent + vF.value;
+    vo.innerHTML = "Volume : " + vF.value;
 });
+base.innerHTML = "Base frequency : " + baseF.value;
+beat.innerHTML = "Beats frequency : " + beatF.value;
+vo.innerHTML = "Volume : " + vF.value;
 
 
 // MEDITATION PAGE
