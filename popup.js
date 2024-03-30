@@ -155,12 +155,20 @@ function toggleMusic() {
           }
 
         }
+
         console.log(tabId);
         chrome.tabs.sendMessage(tabId || tabs[0].id, {
           text: "play",
           parameter1: baseFreq,
           parameter2: beatFreq,
           parameter3: vol
+        });
+
+
+        chrome.tabs.query({ url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" }, function (tabs) {
+          if (tabs.length > 0) {
+            chrome.tabs.update(tabs[0].id, { active: true });
+          }
         });
       }
 
@@ -169,7 +177,7 @@ function toggleMusic() {
 
   }
   else {
-    
+
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
@@ -283,6 +291,12 @@ medi.addEventListener('click', () => {
     }
     if (flag1) {
       chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+    }else{
+      chrome.tabs.query({ url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" }, function (tabs) {
+        if (tabs.length > 0) {
+          chrome.tabs.update(tabs[0].id, { active: true });
+        }
+      });
     }
   })
 })
