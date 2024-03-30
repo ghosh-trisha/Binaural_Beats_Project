@@ -5,7 +5,7 @@
     "permissions" : ["tabs","storage"],
     "action" : {
         "default_popup" : "popup.html",
-        "default_icon" : "logo1.jpeg"
+        "default_icon" : "logo.png"
     },
     "background" : {
         "service_worker" : "background.js"
@@ -17,7 +17,7 @@
         }
     ],
     "icons" : {
-        "128" : "logo1.jpeg"
+        "128" : "logo.png"
     }
 
 }
