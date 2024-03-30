@@ -121,38 +121,38 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 let isPlayingMusic = false;
 function toggleMusic() {
-    if (!isPlayingMusic) {
-        let baseFreq =parseInt( document.getElementById('baseFre').value);
-        let beatFreq = parseInt(document.getElementById('beatsFre').value);
-        let vol =parseFloat( document.getElementById('volume').value);
-        // console.log(baseFreq);
-        // console.log(beatFreq);
-        // console.log(vol);
-        //   playMusic(baseFreq, beatFreq, vol);
-        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id,{ 
-            text: "play",
-            parameter1: baseFreq,
-            parameter2: beatFreq,
-            parameter3: vol
-            });
-        });
-    } 
-    else {
-        //    pauseMusic();
-        let baseFreq =parseInt( document.getElementById('baseFre').value);
-        let beatFreq = parseInt(document.getElementById('beatsFre').value);
-        let vol =parseFloat( document.getElementById('volume').value);
-        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, { 
-                text: "pause",
-                parameter1: baseFreq,
-                parameter2: beatFreq,
-                parameter3: vol
-            });
-        });
-    }
-    isPlayingMusic = !isPlayingMusic;
+  if (!isPlayingMusic) {
+    let baseFreq = parseInt(document.getElementById('baseFre').value);
+    let beatFreq = parseInt(document.getElementById('beatsFre').value);
+    let vol = parseFloat(document.getElementById('volume').value);
+    // console.log(baseFreq);
+    // console.log(beatFreq);
+    // console.log(vol);
+    //   playMusic(baseFreq, beatFreq, vol);
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        text: "play",
+        parameter1: baseFreq,
+        parameter2: beatFreq,
+        parameter3: vol
+      });
+    });
+  }
+  else {
+    //    pauseMusic();
+    let baseFreq = parseInt(document.getElementById('baseFre').value);
+    let beatFreq = parseInt(document.getElementById('beatsFre').value);
+    let vol = parseFloat(document.getElementById('volume').value);
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        text: "pause",
+        parameter1: baseFreq,
+        parameter2: beatFreq,
+        parameter3: vol
+      });
+    });
+  }
+  isPlayingMusic = !isPlayingMusic;
 }
 playPauseButton.addEventListener('click', toggleMusic);
 
@@ -166,15 +166,18 @@ playPauseButton.addEventListener('click', toggleMusic);
 
 // Retrieve data from Chrome storage
 function retrieveData() {
-  chrome.storage.sync.get(['popData'], function(result) {
+  chrome.storage.sync.get(['popData'], function (result) {
     // console.log('Data retrieved successfully:', result.popData);
-   
-   document.getElementById('baseFre').value=result.popData.baseFreq;
-   document.getElementById('beatsFre').value=result.popData.beatFreq;
-   document.getElementById('volume').value=result.popData.vol;
-   isPlayingMusic=result.popData.bool;
-   isPlaying=!(result.popData.bool);
-   togglePlayPause();
+
+    document.getElementById('baseFre').value = result.popData.baseFreq;
+    document.getElementById('beatsFre').value = result.popData.beatFreq;
+    document.getElementById('volume').value = result.popData.vol;
+    isPlayingMusic = result.popData.bool;
+    isPlaying = !(result.popData.bool);
+    togglePlayPause();
+    base.innerHTML = "Base frequency : " + result.popData.baseFreq;
+    beat.innerHTML = "Beats frequency : " + result.popData.beatFreq;
+    vo.innerHTML = "Volume : " + result.popData.vol;
   });
 }
 retrieveData();
@@ -183,22 +186,20 @@ retrieveData();
 let base = document.getElementById('a');
 let beat = document.getElementById('b');
 let vo = document.getElementById('c');
-let baseF =document.getElementById('baseFre');
-let beatF =document.getElementById('beatsFre');
-let vF =document.getElementById('volume');
+let baseF = document.getElementById('baseFre');
+let beatF = document.getElementById('beatsFre');
+let vF = document.getElementById('volume');
 
-baseF.addEventListener('change', function(){
-    base.innerHTML = "Base frequency : " + baseF.value;
+baseF.addEventListener('change', function () {
+  base.innerHTML = "Base frequency : " + baseF.value;
 });
-beatF.addEventListener('change', function(){
-    beat.innerHTML = "Beats frequency : " + beatF.value;
+beatF.addEventListener('change', function () {
+  beat.innerHTML = "Beats frequency : " + beatF.value;
 });
-vF.addEventListener('change', function(){
-    vo.innerHTML = "Volume : " + vF.value;
+vF.addEventListener('change', function () {
+  vo.innerHTML = "Volume : " + vF.value;
 });
-base.innerHTML = "Base frequency : " + baseF.value;
-beat.innerHTML = "Beats frequency : " + beatF.value;
-vo.innerHTML = "Volume : " + vF.value;
+
 
 
 // MEDITATION PAGE
