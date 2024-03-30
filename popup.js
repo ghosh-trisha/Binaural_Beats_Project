@@ -1,4 +1,4 @@
-
+let tab_id = tabs[0].id;
 let playPauseButton = document.getElementById('playPause');
 let playPauseImage = document.getElementById('playPauseImg');
 let isPlaying = false;
@@ -129,6 +129,7 @@ function toggleMusic() {
     // console.log(beatFreq);
     // console.log(vol);
     //   playMusic(baseFreq, beatFreq, vol);
+    
     chrome.tabs.query({  }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         text: "play",
