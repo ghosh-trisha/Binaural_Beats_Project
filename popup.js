@@ -121,38 +121,38 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 let isPlayingMusic = false;
 function toggleMusic() {
-    if (!isPlayingMusic) {
-        let baseFreq =parseInt( document.getElementById('baseFre').value);
-        let beatFreq = parseInt(document.getElementById('beatsFre').value);
-        let vol =parseFloat( document.getElementById('volume').value);
-        // console.log(baseFreq);
-        // console.log(beatFreq);
-        // console.log(vol);
-        //   playMusic(baseFreq, beatFreq, vol);
-        chrome.tabs.query({ }, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id,{ 
-            text: "play",
-            parameter1: baseFreq,
-            parameter2: beatFreq,
-            parameter3: vol
-            });
-        });
-    } 
-    else {
-        //    pauseMusic();
-        let baseFreq =parseInt( document.getElementById('baseFre').value);
-        let beatFreq = parseInt(document.getElementById('beatsFre').value);
-        let vol =parseFloat( document.getElementById('volume').value);
-        chrome.tabs.query({  }, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, { 
-                text: "pause",
-                parameter1: baseFreq,
-                parameter2: beatFreq,
-                parameter3: vol
-            });
-        });
-    }
-    isPlayingMusic = !isPlayingMusic;
+  if (!isPlayingMusic) {
+    let baseFreq = parseInt(document.getElementById('baseFre').value);
+    let beatFreq = parseInt(document.getElementById('beatsFre').value);
+    let vol = parseFloat(document.getElementById('volume').value);
+    // console.log(baseFreq);
+    // console.log(beatFreq);
+    // console.log(vol);
+    //   playMusic(baseFreq, beatFreq, vol);
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        text: "play",
+        parameter1: baseFreq,
+        parameter2: beatFreq,
+        parameter3: vol
+      });
+    });
+  }
+  else {
+    //    pauseMusic();
+    let baseFreq = parseInt(document.getElementById('baseFre').value);
+    let beatFreq = parseInt(document.getElementById('beatsFre').value);
+    let vol = parseFloat(document.getElementById('volume').value);
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        text: "pause",
+        parameter1: baseFreq,
+        parameter2: beatFreq,
+        parameter3: vol
+      });
+    });
+  }
+  isPlayingMusic = !isPlayingMusic;
 }
 playPauseButton.addEventListener('click', toggleMusic);
 
@@ -166,18 +166,18 @@ playPauseButton.addEventListener('click', toggleMusic);
 
 // Retrieve data from Chrome storage
 function retrieveData() {
-  chrome.storage.sync.get(['popData'], function(result) {
+  chrome.storage.sync.get(['popData'], function (result) {
     // console.log('Data retrieved successfully:', result.popData);
-   
-   document.getElementById('baseFre').value=result.popData.baseFreq;
-   document.getElementById('beatsFre').value=result.popData.beatFreq;
-   document.getElementById('volume').value=result.popData.vol;
-   isPlayingMusic=result.popData.bool;
-   isPlaying=!(result.popData.bool);
-   togglePlayPause();
-   base.innerHTML = "Base frequency : " + result.popData.baseFreq+" Fz";
-   beat.innerHTML = "Beats frequency : " + result.popData.beatFreq+" Fz";
-   vo.innerHTML = "Volume : " + Math.round((result.popData.vol/.50)*100);
+
+    document.getElementById('baseFre').value = result.popData.baseFreq;
+    document.getElementById('beatsFre').value = result.popData.beatFreq;
+    document.getElementById('volume').value = result.popData.vol;
+    isPlayingMusic = result.popData.bool;
+    isPlaying = !(result.popData.bool);
+    togglePlayPause();
+    base.innerHTML = "Base frequency : " + result.popData.baseFreq + " Hz";
+    beat.innerHTML = "Beats frequency : " + result.popData.beatFreq + " Hz";
+    vo.innerHTML = "Volume : " + Math.round((result.popData.vol / .50) * 100);
   });
 }
 retrieveData();
@@ -186,56 +186,43 @@ retrieveData();
 let base = document.getElementById('a');
 let beat = document.getElementById('b');
 let vo = document.getElementById('c');
-let baseF =document.getElementById('baseFre');
-let beatF =document.getElementById('beatsFre');
-let vF =document.getElementById('volume');
+let baseF = document.getElementById('baseFre');
+let beatF = document.getElementById('beatsFre');
+let vF = document.getElementById('volume');
 
-baseF.addEventListener('input', function(){
-    base.innerHTML = "Base frequency : " + baseF.value+" Fz";
-    if(isPlaying){
-        changing();
-    }
-    // if(isPlaying){
-    //   toggleMusic();
-    //   toggleMusic();
-    // }
+baseF.addEventListener('input', function () {
+  base.innerHTML = "Base frequency : " + baseF.value + " Hz";
+  if (isPlaying) {
+    changeFre();
+  }
 });
-beatF.addEventListener('input', function(){
-    beat.innerHTML = "Beats frequency : " + beatF.value+" Fz";
-    if(isPlaying){
-        changing();
-    }
-    // if(isPlaying){
-    //   toggleMusic();
-    //   toggleMusic();
-    // }
+beatF.addEventListener('input', function () {
+  beat.innerHTML = "Beats frequency : " + beatF.value + " Hz";
+  if (isPlaying) {
+    changeFre();
+  }
 });
-vF.addEventListener('input', function(){
-    vo.innerHTML = "Volume : " +Math.round((vF.value/.50)*100);
-    if(isPlaying){
-        changing();
-    }
-//   if(isPlaying){
-//     toggleMusic();
-//     toggleMusic();
-//   }
+vF.addEventListener('input', function () {
+  vo.innerHTML = "Volume : " + Math.round((vF.value / .50) * 100);
+  if (isPlaying) {
+    changeFre();
+  }
 });
-function changing(){
-    let baseFreq =parseInt( document.getElementById('baseFre').value);
-        let beatFreq = parseInt(document.getElementById('beatsFre').value);
-        let vol =parseFloat( document.getElementById('volume').value);
-        chrome.tabs.query({  }, function(tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, { 
-                text: "changeVol",
-                parameter1: baseFreq,
-                parameter2: beatFreq,
-                parameter3: vol
-            });
-        });
+
+
+function changeFre() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    let baseFreq = parseInt(document.getElementById('baseFre').value);
+    let beatFreq = parseInt(document.getElementById('beatsFre').value);
+    let vol = parseFloat(document.getElementById('volume').value);
+    chrome.tabs.sendMessage(tabs[0].id, {
+        text: "changeVol",
+        parameter1: baseFreq,
+        parameter2: beatFreq,
+        parameter3: vol
+    });
+  });
 }
-
-
-
 
 
 // MEDITATION PAGE

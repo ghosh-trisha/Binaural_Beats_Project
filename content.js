@@ -1,8 +1,6 @@
 // document.body.style.backgroundColor = "red";
 
-let gainNode = null;
-let leftEarOsc = null;
-let rightEarOsc= null;
+
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if(message.text == "play"){
       let baseFreq = message.parameter1;
@@ -20,14 +18,17 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         let vol = message.parameter3;
         pauseMusic(baseFreq, beatFreq, vol);
     }
-    if(message.text=="changeVol"){
+    if(message.text == "changeVol"){
+       
         let baseFreq = message.parameter1;
         let beatFreq = message.parameter2;
         let vol = message.parameter3;
+        gainNode.gain.value = vol;
         leftEarOsc.frequency.value = Math.round(baseFreq + (beatFreq / 2));
         rightEarOsc.frequency.value = Math.round(baseFreq - (beatFreq / 2));
-        gainNode.gain.value = vol;
+
     }
+
 });
 
 // let audioContext = new AudioContext();
@@ -42,6 +43,9 @@ function createOrResumeAudioContext() {
 }
 
 
+let leftEarOsc = null;
+let rightEarOsc= null;
+let gainNode=null;
 function playMusic(baseFreq, beatFreq, vol) {
 
     createOrResumeAudioContext();
@@ -55,7 +59,7 @@ function playMusic(baseFreq, beatFreq, vol) {
 
   leftEarOsc.frequency.value = Math.round(baseFreq + (beatFreq / 2));
   rightEarOsc.frequency.value = Math.round(baseFreq - (beatFreq / 2));
-  
+
   gainNode = audioContext.createGain();
   gainNode.gain.value = vol;
 
@@ -71,7 +75,6 @@ function playMusic(baseFreq, beatFreq, vol) {
   leftStereoPanner.connect(gainNode);
   rightStereoPanner.connect(gainNode);
 
-  gainNode = audioContext.createGain();
   gainNode.connect(audioContext.destination);
 
 
