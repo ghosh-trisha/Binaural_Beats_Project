@@ -183,9 +183,9 @@ retrieveData();
 let base = document.getElementById('a');
 let beat = document.getElementById('b');
 let vo = document.getElementById('c');
-let baseF =parseInt( document.getElementById('baseFre'));
-let beatF = parseInt(document.getElementById('beatsFre'));
-let vF =parseFloat( document.getElementById('volume'));
+let baseF =document.getElementById('baseFre');
+let beatF =document.getElementById('beatsFre');
+let vF =document.getElementById('volume');
 
 baseF.addEventListener('change', function(){
     base.innerHTML = base.textContent + baseF.value;
