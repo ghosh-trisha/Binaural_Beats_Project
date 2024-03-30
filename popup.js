@@ -190,21 +190,21 @@ let baseF =document.getElementById('baseFre');
 let beatF =document.getElementById('beatsFre');
 let vF =document.getElementById('volume');
 
-baseF.addEventListener('change', function(){
+baseF.addEventListener('input', function(){
     base.innerHTML = "Base frequency : " + baseF.value+" Fz";
     if(isPlaying){
       toggleMusic();
       toggleMusic();
     }
 });
-beatF.addEventListener('change', function(){
+beatF.addEventListener('input', function(){
     beat.innerHTML = "Beats frequency : " + beatF.value+" Fz";
     if(isPlaying){
       toggleMusic();
       toggleMusic();
     }
 });
-vF.addEventListener('change', function(){
+vF.addEventListener('input', function(){
     vo.innerHTML = "Volume : " +Math.round((vF.value/.50)*100);
   if(isPlaying){
     toggleMusic();
