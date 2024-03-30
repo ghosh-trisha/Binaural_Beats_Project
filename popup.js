@@ -175,9 +175,9 @@ function retrieveData() {
    isPlayingMusic=result.popData.bool;
    isPlaying=!(result.popData.bool);
    togglePlayPause();
-   base.innerHTML = "Base frequency : " + result.popData.baseFreq;
-   beat.innerHTML = "Beats frequency : " + result.popData.beatFreq;
-   vo.innerHTML = "Volume : " + result.popData.vol  ;
+   base.innerHTML = "Base frequency : " + result.popData.baseFreq+" Fz";
+   beat.innerHTML = "Beats frequency : " + result.popData.beatFreq+" Fz";
+   vo.innerHTML = "Volume : " + Math.round((result.popData.vol/.50)*100);
   });
 }
 retrieveData();
@@ -191,13 +191,25 @@ let beatF =document.getElementById('beatsFre');
 let vF =document.getElementById('volume');
 
 baseF.addEventListener('change', function(){
-    base.innerHTML = "Base frequency : " + baseF.value;
+    base.innerHTML = "Base frequency : " + baseF.value+" Fz";
+    if(isPlaying){
+      toggleMusic();
+      toggleMusic();
+    }
 });
 beatF.addEventListener('change', function(){
-    beat.innerHTML = "Beats frequency : " + beatF.value;
+    beat.innerHTML = "Beats frequency : " + beatF.value+" Fz";
+    if(isPlaying){
+      toggleMusic();
+      toggleMusic();
+    }
 });
 vF.addEventListener('change', function(){
-    vo.innerHTML = "Volume : " + vF.value;
+    vo.innerHTML = "Volume : " +Math.round((vF.value/.50)*100);
+  if(isPlaying){
+    toggleMusic();
+    toggleMusic();
+  }
 });
 
 
