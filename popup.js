@@ -129,7 +129,7 @@ function toggleMusic() {
     // console.log(beatFreq);
     // console.log(vol);
     //   playMusic(baseFreq, beatFreq, vol);
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({  }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         text: "play",
         parameter1: baseFreq,
@@ -143,7 +143,7 @@ function toggleMusic() {
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({  }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         text: "pause",
         parameter1: baseFreq,
@@ -211,7 +211,7 @@ vF.addEventListener('input', function () {
 
 
 function changeFre() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  chrome.tabs.query({  }, function (tabs) {
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
@@ -226,7 +226,7 @@ function changeFre() {
 
 
 // MEDITATION PAGE
-// const medi=document.getElementById("medi");
-// medi.addEventListener('click',()=>{
-//   chrome.runtime.sendMessage({ action: "openNewTab", url: "page/index.html" });
-// })
+const medi=document.getElementById("medi");
+medi.addEventListener('click',()=>{
+  chrome.runtime.sendMessage({ action: "openNewTab", url: "page/index.html" });
+})
