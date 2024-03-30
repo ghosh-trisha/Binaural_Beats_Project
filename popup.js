@@ -129,6 +129,14 @@ function toggleMusic() {
     // console.log(beatFreq);
     // console.log(vol);
     //   playMusic(baseFreq, beatFreq, vol);
+
+    chrome.tabs.query({  }, function (tabs) {
+      if(!tabs[0].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
+        chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+      }
+      })
+
+
     chrome.tabs.query({  }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         text: "play",
@@ -228,5 +236,9 @@ function changeFre() {
 // MEDITATION PAGE
 const medi=document.getElementById("medi");
 medi.addEventListener('click',()=>{
-  chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+  chrome.tabs.query({  }, function (tabs) {
+    if(!tabs[0].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
+      chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+    }
+    })
 })
