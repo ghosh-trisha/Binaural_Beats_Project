@@ -133,23 +133,17 @@ function toggleMusic() {
     //   playMusic(baseFreq, beatFreq, vol);
 
     chrome.tabs.query({  }, function (tabs) {
-      if(!tabs[0].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
-        chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
-      }
-
-
-
+  
       let flag1=true;
-      for(let e in tabs){
-      if(e.url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
+     for (let index = 0; index < tabs.length; index++){
+      if(tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
         flag1=false;
         }
-      }
-    if(flag1){
-      chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
-    }
-
-
+      
+  }
+  if(flag1){
+    chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+  }
 
       tab_id = tabs[0].id;
 
@@ -173,9 +167,12 @@ function toggleMusic() {
           }
       }
       
-      
+      retrieveId()
 
     chrome.tabs.query({  }, function (tabs) {
+      let baseFreq = parseInt(document.getElementById('baseFre').value);
+      let beatFreq = parseInt(document.getElementById('beatsFre').value);
+      let vol = parseFloat(document.getElementById('volume').value);
       chrome.tabs.sendMessage(tab_id, {
         text: "play",
         parameter1: baseFreq,
@@ -185,6 +182,7 @@ function toggleMusic() {
     });
   }
   else {
+    retrieveId()
     //    pauseMusic();
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
@@ -286,10 +284,11 @@ const medi=document.getElementById("medi");
 medi.addEventListener('click',()=>{
   chrome.tabs.query({  }, function (tabs) {
     let flag1=true;
-    for(let e in tabs){
-    if(e.url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
-      flag1=false;
-    }
+     for (let index = 0; index < tabs.length; index++){
+      if(tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
+        flag1=false;
+        }
+      
   }
   if(flag1){
     chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
