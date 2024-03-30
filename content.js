@@ -95,3 +95,5 @@ function pauseMusic(baseFreq, beatFreq, vol) {
 function storeData(baseFreq, beatFreq, vol, bool) {
     chrome.storage.sync.set({ 'popData':{baseFreq, beatFreq, vol, bool} });
 }
+
+
