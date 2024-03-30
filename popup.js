@@ -149,10 +149,11 @@ function toggleMusic() {
                 flag=true;
             }
           }
+          if(flag==false){
+            storeId(tab_id);
+          }
       }
-      if(flag==true){
-        storeId(tab_id);
-      }
+      
       
 
     chrome.tabs.query({  }, function (tabs) {
