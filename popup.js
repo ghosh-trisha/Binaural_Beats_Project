@@ -187,13 +187,13 @@ let baseFreq =parseInt( document.getElementById('baseFre').value);
 let beatFreq = parseInt(document.getElementById('beatsFre').value);
 let vol =parseFloat( document.getElementById('volume').value);
 
-base.addEventListener('change', function(){
+baseFreq.addEventListener('change', function(){
     base.innerHTML = base.textContent + baseFreq;
 });
-beat.addEventListener('change', function(){
+beatFreq.addEventListener('change', function(){
     beat.innerHTML = beat.textContent + beatFreq;
 });
-vo.addEventListener('change', function(){
+vol.addEventListener('change', function(){
     vo.innerHTML = vo.textContent + vol;
 });
 
