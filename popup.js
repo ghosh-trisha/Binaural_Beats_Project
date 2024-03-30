@@ -177,7 +177,7 @@ function retrieveData() {
     togglePlayPause();
     base.innerHTML = "Base frequency : " + result.popData.baseFreq;
     beat.innerHTML = "Beats frequency : " + result.popData.beatFreq;
-    vo.innerHTML = "Volume : " + result.popData.vol;
+    vo.innerHTML = "Volume : " + result.popData.vol  ;
   });
 }
 retrieveData();
