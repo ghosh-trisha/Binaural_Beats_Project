@@ -153,6 +153,7 @@ playPauseButton.addEventListener('click', toggleMusic);
 //   chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
 // }
 
+
 // Retrieve data from Chrome storage
 function retrieveData() {
   chrome.storage.sync.get(['popData'], function(result) {

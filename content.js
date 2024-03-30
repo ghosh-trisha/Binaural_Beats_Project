@@ -25,11 +25,12 @@ function createOrResumeAudioContext() {
     }
 }
 
-createOrResumeAudioContext();
+
 let leftEarOsc = null;
 let rightEarOsc= null;
 function playMusic(baseFreq,beatFreq,vol) {
 
+    createOrResumeAudioContext();
     storeData(baseFreq,beatFreq,vol);
 
     leftEarOsc = audioContext.createOscillator();
