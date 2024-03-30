@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       playMusic(baseFreq, beatFreq, vol);
     }
     if(message.text == "pause"){
-        pauseMusic();
+        pauseMusic(baseFreq, beatFreq, vol);
     }
 });
 
@@ -67,7 +67,7 @@ function playMusic(baseFreq, beatFreq, vol) {
   rightEarOsc.start();
 }
 
-function pauseMusic() {
+function pauseMusic(baseFreq, beatFreq, vol) {
     if(leftEarOsc!=null){
     leftEarOsc.stop();}
 
