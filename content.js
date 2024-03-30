@@ -13,6 +13,9 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       playMusic(baseFreq, beatFreq, vol);
     }
     if(message.text == "pause"){
+        let baseFreq = message.parameter1;
+        let beatFreq = message.parameter2;
+        let vol = message.parameter3;
         pauseMusic(baseFreq, beatFreq, vol);
     }
 });
