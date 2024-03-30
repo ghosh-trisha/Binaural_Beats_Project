@@ -122,7 +122,7 @@ playPauseButton.addEventListener('click', togglePlayPause);
 let tab_id = null;
 let isPlayingMusic = false;
 function toggleMusic() {
-    retrieveId();
+    
   if (!isPlayingMusic) {
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
@@ -136,9 +136,24 @@ function toggleMusic() {
       if(!tabs[0].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")){
         chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
       }
-      })
       tab_id = tabs[0].id;
-      storeId(tab_id);
+      })
+      
+      if(tab_id==null){
+        storeId(tab_id);
+      }
+      else{
+        let flag=false;
+        for(let i in tabs){
+            if(tab_id==i.id){
+                flag=true;
+            }
+          }
+      }
+      if(flag==true){
+        storeId(tab_id);
+      }
+      
 
     chrome.tabs.query({  }, function (tabs) {
       chrome.tabs.sendMessage(tab_id, {
