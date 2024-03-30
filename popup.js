@@ -125,25 +125,32 @@ function toggleMusic() {
         let baseFreq =parseInt( document.getElementById('baseFre').value);
         let beatFreq = parseInt(document.getElementById('beatsFre').value);
         let vol =parseFloat( document.getElementById('volume').value);
-        console.log(baseFreq);
-        console.log(beatFreq);
-        console.log(vol);
-    //   playMusic(baseFreq, beatFreq, vol);
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id,{ 
-          text: "play",
-          parameter1: baseFreq,
-          parameter2: beatFreq,
-          parameter3: vol
+        // console.log(baseFreq);
+        // console.log(beatFreq);
+        // console.log(vol);
+        //   playMusic(baseFreq, beatFreq, vol);
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id,{ 
+            text: "play",
+            parameter1: baseFreq,
+            parameter2: beatFreq,
+            parameter3: vol
+            });
         });
-    });
-    } else {
-    //    pauseMusic();
-    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { 
-            text: "pause",
+    } 
+    else {
+        //    pauseMusic();
+        let baseFreq =parseInt( document.getElementById('baseFre').value);
+        let beatFreq = parseInt(document.getElementById('beatsFre').value);
+        let vol =parseFloat( document.getElementById('volume').value);
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, { 
+                text: "pause",
+                parameter1: baseFreq,
+                parameter2: beatFreq,
+                parameter3: vol
+            });
         });
-    });
     }
     isPlayingMusic = !isPlayingMusic;
 }
