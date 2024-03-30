@@ -122,6 +122,7 @@ playPauseButton.addEventListener('click', togglePlayPause);
 let tab_id = null;
 let isPlayingMusic = false;
 function toggleMusic() {
+    retrieveId();
   if (!isPlayingMusic) {
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
@@ -180,7 +181,7 @@ function retrieveId() {
       tab_id = result.popId.tab_id;
     });
   }
-retrieveId();
+
 
 
 // Retrieve data from Chrome storage
@@ -230,11 +231,12 @@ vF.addEventListener('input', function () {
 
 
 function changeFre() {
+    retrieveId();
   chrome.tabs.query({  }, function (tabs) {
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
-    chrome.tabs.sendMessage(tab_id.id, {
+    chrome.tabs.sendMessage(tab_id, {
         text: "changeVol",
         parameter1: baseFreq,
         parameter2: beatFreq,
