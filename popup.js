@@ -125,6 +125,9 @@ function toggleMusic() {
         let baseFreq =parseInt( document.getElementById('baseFre').value);
         let beatFreq = parseInt(document.getElementById('beatsFre').value);
         let vol =parseFloat( document.getElementById('volume').value);
+        // console.log(baseFreq);
+        // console.log(beatFreq);
+        // console.log(vol);
     //   playMusic(baseFreq, beatFreq, vol);
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id,{ 

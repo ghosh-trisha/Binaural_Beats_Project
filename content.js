@@ -3,10 +3,13 @@
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     if(message.text == "play"){
-        console.log(message.text);
       let baseFreq = message.parameter1;
-      let beatFreq = message.parmeter2;
+      let beatFreq = message.parameter2;
       let vol = message.parameter3;
+    //   console.log(baseFreq);
+    //   console.log(beatFreq);
+    //   console.log(vol);
+    //   console.log(message.text);
       playMusic(baseFreq, beatFreq, vol);
     }
     if(message.text == "pause"){
@@ -28,10 +31,10 @@ function createOrResumeAudioContext() {
 
 let leftEarOsc = null;
 let rightEarOsc= null;
-function playMusic(baseFreq,beatFreq,vol) {
+function playMusic(baseFreq, beatFreq, vol) {
 
     createOrResumeAudioContext();
-    storeData(baseFreq,beatFreq,vol);
+    storeData(baseFreq,beatFreq,vol, true);
 
     leftEarOsc = audioContext.createOscillator();
     rightEarOsc = audioContext.createOscillator();
@@ -70,8 +73,10 @@ function pauseMusic() {
 
     if(rightEarOsc!=null){
     rightEarOsc.stop();}
+
+    storeData(baseFreq, beatFreq, vol, false);
 }
 
-function storeData(baseFreq,beatFreq,vol) {
-    chrome.storage.sync.set({ 'popData':{baseFreq,beatFreq,vol} });
+function storeData(baseFreq, beatFreq, vol, bool) {
+    chrome.storage.sync.set({ 'popData':{baseFreq, beatFreq, vol, bool} });
 }
