@@ -88,8 +88,12 @@ function toggleMusic() {
       if (flag1) {     // when no medetation tab is opened
 
          //sending the data along with tab creation to the background.js
-         let data={ baseFreq, beatFreq, vol }
-        chrome.runtime.sendMessage({data, action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+        chrome.runtime.sendMessage({ 
+          parameter1: baseFreq,
+          parameter2: beatFreq,
+          parameter3: vol,
+          action: "openNewTab", 
+          url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
       }
       else {     // when atleast one medetation tab is opened
         let tabId = null;
