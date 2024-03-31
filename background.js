@@ -4,6 +4,11 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
       chrome.tabs.create({ url: message.url , index: 0});
     }
     // sending message for play
+
+    console.log(message.data.baseFreq);
+    console.log(message.data.beatFreq);
+    console.log(message.data.vol);
+
     chrome.tabs.query({}, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         text: "play",
