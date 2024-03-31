@@ -86,7 +86,10 @@ function toggleMusic() {
 
       }
       if (flag1) {     // when no medetation tab is opened
-        chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
+
+         //sending the data along with tab creation to the background.js
+         let data={ baseFreq, beatFreq, vol }
+        chrome.runtime.sendMessage({data, action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
       }
       else {     // when atleast one medetation tab is opened
         let tabId = null;
@@ -94,7 +97,6 @@ function toggleMusic() {
           if (tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")) {
             tabId = tabs[index].id;
           }
-
         }
         // sending message for play
         chrome.tabs.sendMessage(tabId || tabs[0].id, {
