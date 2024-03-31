@@ -4,11 +4,7 @@
 // receiving the message for base frequency , beat frequency , volume
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     // for playing the music
-    if(message.text == "play" || message.action == "openNewTab"){
-        console.log(message.parameter1);
-        console.log(message.parameter2);
-        console.log(message.parameter3);
-
+    if(message.text == "play"){
       let baseFreq = message.parameter1;
       let beatFreq = message.parameter2;
       let vol = message.parameter3;
