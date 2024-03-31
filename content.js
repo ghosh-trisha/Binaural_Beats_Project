@@ -1,25 +1,24 @@
 // document.body.style.backgroundColor = "red";
 
 
+// receiving the message for base frequency , beat frequency , volume
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    // for playing the music
     if(message.text == "play"){
       let baseFreq = message.parameter1;
       let beatFreq = message.parameter2;
       let vol = message.parameter3;
-    //   console.log(baseFreq);
-    //   console.log(beatFreq);
-    //   console.log(vol);
-    //   console.log(message.text);
       playMusic(baseFreq, beatFreq, vol);
     }
+    // for pausing the music
     if(message.text == "pause"){
         let baseFreq = message.parameter1;
         let beatFreq = message.parameter2;
         let vol = message.parameter3;
         pauseMusic(baseFreq, beatFreq, vol);
     }
+    // for changing base frequency , beat frequency , volume of the music
     if(message.text == "changeVol"){
-       
         let baseFreq = message.parameter1;
         let beatFreq = message.parameter2;
         let vol = message.parameter3;
@@ -31,7 +30,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
 });
 
-// let audioContext = new AudioContext();
+
 let audioContext = null;
 // Function to create or resume AudioContext
 function createOrResumeAudioContext() {
@@ -46,6 +45,7 @@ function createOrResumeAudioContext() {
 let leftEarOsc = null;
 let rightEarOsc= null;
 let gainNode=null;
+// function for playing the music
 function playMusic(baseFreq, beatFreq, vol) {
     
     createOrResumeAudioContext();
@@ -82,6 +82,8 @@ function playMusic(baseFreq, beatFreq, vol) {
   rightEarOsc.start();
 }
 
+
+// function for pausing the music
 function pauseMusic(baseFreq, beatFreq, vol) {
     if(leftEarOsc!=null){
     leftEarOsc.stop();}
@@ -92,6 +94,10 @@ function pauseMusic(baseFreq, beatFreq, vol) {
     storeData(baseFreq, beatFreq, vol, false);
 }
 
+
+// function for storing base frequency , beat frequency , volume , bool
+// bool = true , if the music is playing
+// bool = false , if the music is not playing
 function storeData(baseFreq, beatFreq, vol, bool) {
     chrome.storage.sync.set({ 'popData':{baseFreq, beatFreq, vol, bool} });
 }
