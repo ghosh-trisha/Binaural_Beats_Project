@@ -1,7 +1,7 @@
 let playPauseButton = document.getElementById('playPause');
 let playPauseImage = document.getElementById('playPauseImg');
 let isPlaying = false;
-// function for toggle play of pic  
+// function for toggling of pic  
 function togglePlayPause() {
   if (isPlaying) {
     // playPauseButton.textContent = 'Play';
@@ -69,7 +69,7 @@ playPauseButton.addEventListener('click', togglePlayPause);
 
 let tab_id = null;
 let isPlayingMusic = false;
-// function for toggle music 
+// function for toggling of music 
 function toggleMusic() {
   // sending message for play , pause -> play
   if (!isPlayingMusic) {    // isPlayingMusic = false, pause -> play
@@ -138,11 +138,9 @@ playPauseButton.addEventListener('click', toggleMusic);
 
 
 
-// Retrieve data from Chrome storage
+// Retrieve data from Chrome storage for base frequency , beat frequency , volume , bool
 function retrieveData() {
   chrome.storage.sync.get(['popData'], function (result) {
-    // console.log('Data retrieved successfully:', result.popData);
-
     document.getElementById('baseFre').value = result.popData.baseFreq;
     document.getElementById('beatsFre').value = result.popData.beatFreq;
     document.getElementById('volume').value = result.popData.vol;
@@ -164,18 +162,21 @@ let baseF = document.getElementById('baseFre');
 let beatF = document.getElementById('beatsFre');
 let vF = document.getElementById('volume');
 
+// for changing the base frequency with draging the input range
 baseF.addEventListener('input', function () {
   base.innerHTML = "Base frequency : " + baseF.value + " Hz";
   if (isPlaying) {
     changeFre();
   }
 });
+// for changing the beat frequency with draging the input range
 beatF.addEventListener('input', function () {
   beat.innerHTML = "Beats frequency : " + beatF.value + " Hz";
   if (isPlaying) {
     changeFre();
   }
 });
+// for changing the volume with draging the input range
 vF.addEventListener('input', function () {
   vo.innerHTML = "Volume : " + Math.round((vF.value / .50) * 100);
   if (isPlaying) {
@@ -184,8 +185,8 @@ vF.addEventListener('input', function () {
 });
 
 
+// taking 3 inputs and setting that 3 values for that moment
 function changeFre() {
-  // retrieveId();
   chrome.tabs.query({}, function (tabs) {
     let tabId = null;
     for (let index = 0; index < tabs.length; index++) {
@@ -194,10 +195,10 @@ function changeFre() {
       }
 
     }
-    console.log(tabId);
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
+    // sending message for changing volume
     chrome.tabs.sendMessage(tabId || tabs[0].id, {
       text: "changeVol",
       parameter1: baseFreq,
@@ -212,16 +213,16 @@ function changeFre() {
 const medi = document.getElementById("medi");
 medi.addEventListener('click', () => {
   chrome.tabs.query({}, function (tabs) {
-    let flag1 = true;
+    let flag1 = true;     // when no medetation page is  opened
     for (let index = 0; index < tabs.length; index++) {
       if (tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")) {
-        flag1 = false;
+        flag1 = false;    // when atleast one medetation page is  opened
       }
 
     }
-    if (flag1) {
+    if (flag1) {     // when no medetation page is  opened, then open new page
       chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
-    }else{
+    }else{    // when atleast one medetation page is  opened, then goto that page
       chrome.tabs.query({ url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" }, function (tabs) {
         if (tabs.length > 0) {
           chrome.tabs.update(tabs[0].id, { active: true });
