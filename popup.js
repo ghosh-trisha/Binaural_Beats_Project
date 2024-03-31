@@ -1,7 +1,7 @@
-
 let playPauseButton = document.getElementById('playPause');
 let playPauseImage = document.getElementById('playPauseImg');
 let isPlaying = false;
+// function for toggle play of pic  
 function togglePlayPause() {
   if (isPlaying) {
     // playPauseButton.textContent = 'Play';
@@ -15,9 +15,8 @@ function togglePlayPause() {
 playPauseButton.addEventListener('click', togglePlayPause);
 
 
-
-
-
+// Audio
+{
 // let audio = new Audio("song.mp3");
 // let isPlayingAudio = false;
 // function playAudio() {
@@ -29,8 +28,11 @@ playPauseButton.addEventListener('click', togglePlayPause);
 //     isPlayingAudio = !isPlayingAudio;
 //   }
 //   playPauseButton.addEventListener('click', playAudio);
+}
 
 
+// AudioContext
+{
 // let audioContext = new AudioContext();
 // const audioFileURL="song.mp3";
 // let source;
@@ -62,92 +64,31 @@ playPauseButton.addEventListener('click', togglePlayPause);
 //     isPlayingAudioContext = !isPlayingAudioContext;
 // }
 // playPauseButton.addEventListener('click', playAudioContext);
-
-
-
-
-
-// let audioContext = new AudioContext();
-// let leftEarOsc = null;
-// let rightEarOsc= null;
-// function playMusic() {
-
-//           let baseFreq =parseInt( document.getElementById('baseFre').value);
-//           let beatFreq = parseInt(document.getElementById('beatsFre').value);
-//           let vol =parseFloat( document.getElementById('volume').value);
-//           storeData(baseFreq,beatFreq,vol);
-
-//           leftEarOsc = audioContext.createOscillator();
-//           rightEarOsc = audioContext.createOscillator();
-
-//           leftEarOsc.type = "sine";
-//           rightEarOsc.type = "sine";
-
-//         leftEarOsc.frequency.value = Math.round(baseFreq + (beatFreq / 2));
-//         rightEarOsc.frequency.value = Math.round(baseFreq - (beatFreq / 2));
-
-//         let gainNode = audioContext.createGain();
-//         gainNode.gain.value = vol;
-
-//         let leftStereoPanner = audioContext.createStereoPanner();
-//         let rightStereoPanner = audioContext.createStereoPanner();
-
-//         leftStereoPanner.pan.value = -1;
-//         rightStereoPanner.pan.value = 1;
-
-//         leftEarOsc.connect(leftStereoPanner);
-//         rightEarOsc.connect(rightStereoPanner);
-
-//         leftStereoPanner.connect(gainNode);
-//         rightStereoPanner.connect(gainNode);
-
-//         gainNode.connect(audioContext.destination);
-
-
-//         leftEarOsc.start();
-//         rightEarOsc.start();
-// }
-
-
-
-// function pauseMusic() {
-//       if(leftEarOsc!=null){
-//       leftEarOsc.stop();}
-
-//       if(rightEarOsc!=null){
-//       rightEarOsc.stop();}
-// }
+}
 
 
 let tab_id = null;
 let isPlayingMusic = false;
+// function for toggle music 
 function toggleMusic() {
-
-  if (!isPlayingMusic) {
+  // sending message for play , pause -> play
+  if (!isPlayingMusic) {    // isPlayingMusic = false, pause -> play
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
     let vol = parseFloat(document.getElementById('volume').value);
-    // console.log(baseFreq);
-    // console.log(beatFreq);
-    // console.log(vol);
-    //   playMusic(baseFreq, beatFreq, vol);
-
+    
     chrome.tabs.query({}, function (tabs) {
-
-      let flag1 = true;
+      let flag1 = true;     // when no medetation tab is opened
       for (let index = 0; index < tabs.length; index++) {
         if (tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")) {
-          flag1 = false;
+          flag1 = false;    // when atleast one medetation tab is opened
         }
 
       }
-      if (flag1) {
+      if (flag1) {     // when no medetation tab is opened
         chrome.runtime.sendMessage({ action: "openNewTab", url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" });
       }
-
-
-
-      else {
+      else {     // when atleast one medetation tab is opened
         let tabId = null;
         for (let index = 0; index < tabs.length; index++) {
           if (tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")) {
@@ -155,28 +96,18 @@ function toggleMusic() {
           }
 
         }
-
-        console.log(tabId);
+        // sending message for play
         chrome.tabs.sendMessage(tabId || tabs[0].id, {
           text: "play",
           parameter1: baseFreq,
           parameter2: beatFreq,
           parameter3: vol
         });
-
-
-        chrome.tabs.query({ url: "https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html" }, function (tabs) {
-          if (tabs.length > 0) {
-            chrome.tabs.update(tabs[0].id, { active: true });
-          }
-        });
       }
-
-
     })
-
   }
-  else {
+  // sending message for pause , play -> play
+  else {        // isPlayingMusic = true, play -> pause
 
     let baseFreq = parseInt(document.getElementById('baseFre').value);
     let beatFreq = parseInt(document.getElementById('beatsFre').value);
@@ -187,9 +118,8 @@ function toggleMusic() {
         if (tabs[index].url.includes("https://ghosh-trisha.github.io/Binaural_Beats_Project/page/index.html")) {
           tabId = tabs[index].id;
         }
-
       }
-      console.log(tabId);
+      // sending message for pause
       chrome.tabs.sendMessage(tabId || tabs[0].id, {
         text: "pause",
         parameter1: baseFreq,
