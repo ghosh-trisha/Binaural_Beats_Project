@@ -138,9 +138,6 @@ playPauseButton.addEventListener('click', toggleMusic);
 
 
 
-
-
-
 // Retrieve data from Chrome storage for base frequency , beat frequency , volume , bool
 function retrieveData() {
   chrome.storage.sync.get(['popData'], function (result) {
